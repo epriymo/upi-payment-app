@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UPI Payment</title>
+  <title>Siddha Galaxia II Payment</title>
 
   <style>
+
     body{
-      font-family: Arial, sans-serif;
+      margin:0;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       display:flex;
       justify-content:center;
       align-items:center;
       height:100vh;
-      margin:0;
     }
 
     .container{
+      width:320px;
       background:white;
       padding:30px;
-      border-radius:12px;
-      width:320px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      border-radius:14px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.1);
     }
 
     h2{
       text-align:center;
-      margin-bottom:20px;
+      margin-bottom:25px;
+      color:#5f259f;
     }
 
     input{
       width:100%;
-      padding:12px;
-      margin-bottom:15px;
+      padding:14px;
+      margin-bottom:16px;
       border:1px solid #ccc;
       border-radius:8px;
       font-size:16px;
@@ -42,38 +44,66 @@
     button{
       width:100%;
       padding:14px;
-      border:none;
-      border-radius:8px;
       background:#5f259f;
       color:white;
+      border:none;
+      border-radius:8px;
       font-size:16px;
-      cursor:pointer;
       font-weight:bold;
+      cursor:pointer;
     }
 
     button:hover{
-      opacity:0.9;
+      opacity:0.95;
     }
+
+    .note{
+      margin-top:15px;
+      font-size:13px;
+      color:#666;
+      text-align:center;
+    }
+
   </style>
 </head>
 
 <body>
 
   <div class="container">
+
     <h2>UPI Payment</h2>
 
-    <input type="text" id="name" placeholder="Enter Name" />
-    <input type="text" id="flat" placeholder="Enter Flat Number" />
+    <input
+      type="text"
+      id="name"
+      placeholder="Enter Name"
+    />
 
-    <button onclick="payNow()">Pay with UPI</button>
+    <input
+      type="text"
+      id="flat"
+      placeholder="Enter Flat Number"
+    />
+
+    <button onclick="payNow()">
+      Pay ₹1 with PhonePe
+    </button>
+
+    <div class="note">
+      Opens PhonePe app directly
+    </div>
+
   </div>
 
   <script>
 
     function payNow() {
 
-      const name = document.getElementById("name").value.trim();
-      const flat = document.getElementById("flat").value.trim();
+      const name =
+        document.getElementById("name").value.trim();
+
+      const flat =
+        document.getElementById("flat").value.trim();
 
       if (!name || !flat) {
         alert("Please fill all fields");
@@ -82,14 +112,22 @@
 
       const note = name + "_" + flat;
 
-      const upiLink =
+      const upiUrl =
         "upi://pay?pa=siddhagalaxiaii@sbi" +
         "&pn=Siddha%20Galaxia%20II" +
         "&tn=" + encodeURIComponent(note) +
         "&am=1" +
         "&cu=INR";
 
-      window.location.href = upiLink;
+      const phonePeIntent =
+        "intent://" +
+        upiUrl.replace("upi://", "") +
+        "#Intent;" +
+        "scheme=upi;" +
+        "package=com.phonepe.app;" +
+        "end";
+
+      window.location.href = phonePeIntent;
     }
 
   </script>
