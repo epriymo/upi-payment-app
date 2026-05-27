@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Siddha Galaxia II Payment</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Payment</title>
 
   <style>
 
@@ -53,17 +53,6 @@
       cursor:pointer;
     }
 
-    button:hover{
-      opacity:0.95;
-    }
-
-    .note{
-      margin-top:15px;
-      font-size:13px;
-      color:#666;
-      text-align:center;
-    }
-
   </style>
 </head>
 
@@ -77,21 +66,17 @@
       type="text"
       id="name"
       placeholder="Enter Name"
-    />
+    >
 
     <input
       type="text"
       id="flat"
       placeholder="Enter Flat Number"
-    />
+    >
 
     <button onclick="payNow()">
-      Pay ₹1 with PhonePe
+      Pay ₹1
     </button>
-
-    <div class="note">
-      Opens PhonePe app directly
-    </div>
 
   </div>
 
@@ -119,15 +104,27 @@
         "&am=1" +
         "&cu=INR";
 
-      const phonePeIntent =
-        "intent://" +
-        upiUrl.replace("upi://", "") +
-        "#Intent;" +
-        "scheme=upi;" +
-        "package=com.phonepe.app;" +
-        "end";
+      const isAndroid =
+        /Android/i.test(navigator.userAgent);
 
-      window.location.href = phonePeIntent;
+      if (isAndroid) {
+
+        const phonePeIntent =
+          "intent://" +
+          upiUrl.replace("upi://", "") +
+          "#Intent;" +
+          "scheme=upi;" +
+          "package=com.phonepe.app;" +
+          "end";
+
+        window.location.href = phonePeIntent;
+
+      } else {
+
+        window.location.href = upiUrl;
+
+      }
+
     }
 
   </script>
