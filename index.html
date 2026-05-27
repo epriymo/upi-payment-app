@@ -1,23 +1,98 @@
-<script>
-  function payNow() {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UPI Payment</title>
 
-    const name = document.getElementById("name").value.trim();
-    const flat = document.getElementById("flat").value.trim();
-
-    if(!name || !flat){
-      alert("Please fill all fields");
-      return;
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
     }
 
-    const note = `${name}_${flat}`;
+    .container{
+      background:white;
+      padding:30px;
+      border-radius:12px;
+      width:320px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
 
-    const upiLink =
-      `upi://pay?pa=siddhagalaxiaii@sbi` +
-      `&pn=Siddha Galaxia II` +
-      `&tn=${encodeURIComponent(note)}` +
-      `&am=1` +
-      `&cu=INR`;
+    h2{
+      text-align:center;
+      margin-bottom:20px;
+    }
 
-    window.open(upiLink, "_self");
-  }
-</script>
+    input{
+      width:100%;
+      padding:12px;
+      margin-bottom:15px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      font-size:16px;
+      box-sizing:border-box;
+    }
+
+    button{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:8px;
+      background:#5f259f;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    button:hover{
+      opacity:0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>UPI Payment</h2>
+
+    <input type="text" id="name" placeholder="Enter Name" />
+    <input type="text" id="flat" placeholder="Enter Flat Number" />
+
+    <button onclick="payNow()">Pay with UPI</button>
+  </div>
+
+  <script>
+
+    function payNow() {
+
+      const name = document.getElementById("name").value.trim();
+      const flat = document.getElementById("flat").value.trim();
+
+      if (!name || !flat) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const note = name + "_" + flat;
+
+      const upiLink =
+        "upi://pay?pa=siddhagalaxiaii@sbi" +
+        "&pn=Siddha%20Galaxia%20II" +
+        "&tn=" + encodeURIComponent(note) +
+        "&am=1" +
+        "&cu=INR";
+
+      window.location.href = upiLink;
+    }
+
+  </script>
+
+</body>
+</html>
